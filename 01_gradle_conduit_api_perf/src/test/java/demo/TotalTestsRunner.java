@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TotalDemoRunner {
+class TotalTestsRunner {
     //    @Karate.Test
 //    Karate testUsers() {
 //        return Karate.run().relativeTo(getClass());
