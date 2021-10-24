@@ -3,7 +3,7 @@ Feature: login with an existing user
   Background: url, and mandatory params
     Given url apiUrl
 #      #Given url 'https://api.realworld.io/api'
-#      #Given url 'http://localhost:4200'
+#      #Given url 'https://angular.realworld.io/'
 #    * def extraString = ' for user1'
 #    Given path 'users/login'
 #    And request {"user":{"email":"testuser1@karate.com","password":"test123"}}
@@ -31,6 +31,7 @@ Feature: login with an existing user
       """
       function(arg) {
         if ( myResponse.articlesCount == 0) {
+           console.log("there are no articles")
            console.log(myResponse.articles)
            console.log(myResponse.articles.length)
            console.log(myResponse.length)
@@ -38,10 +39,20 @@ Feature: login with an existing user
            var myNum = 0
            return myNum
         }
+        else if (myResponse.articlesCount > 9){
+          console.log("returning from else if")
+          var slug = arg.articles[0].slug;
+          console.log("arg.articles[0].slug retuns:",slug)
+          var myNum = slug.substr(7,2);
+          console.log("slug.substr(7,2) retuns:",myNum)
+          return myNum
+        }
         else {
           console.log("returning from else")
           var slug = arg.articles[0].slug;
+          console.log("arg.articles[0].slug retuns:",slug)
           var myNum = slug.substr(7,1);
+          console.log("slug.substr(7,1) retuns:",myNum)
           return myNum
         }
         return "returning from outside"
@@ -66,7 +77,7 @@ Feature: login with an existing user
           """
               {
                     "article": {
-                        "tagList": [],
+                        "tagList": ["cars","dragons","apples","honey","api","automation","karate"],
                         "title": #(strNewArticle),
                         "description": #(strNewDescription),
                         "body": #(strNewBody)
