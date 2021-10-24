@@ -1,0 +1,80 @@
+/*
+
+ */
+
+plugins {
+    id 'java'
+    //id 'scala'
+    //id 'io.gatling.gradle' version "3.6.1"
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+/*ext {
+    "karateVersion" = 1.1.0
+}*/
+
+repositories {
+    // Use JCenter for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+//    // Use JUnit Jupiter API for testing.
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+
+//    // Use JUnit Jupiter Engine for testing.
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    testImplementation "com.intuit.karate:karate-junit5:1.1.0"
+    //for gatling & scala simulations to run
+    testImplementation "com.intuit.karate:karate-gatling:1.1.0"
+    //Not required
+    //testImplementation 'com.intuit.karate:karate-apache:0.9.6'
+//    testImplementation "io.gatling.gatling-maven-plugin:3.0.2"
+
+    // Karate logging
+    testRuntimeOnly 'net.masterthought:cucumber-reporting:5.6.0'
+    testRuntimeOnly 'ch.qos.logback.contrib:logback-json-classic:0.1.5'
+    testRuntimeOnly 'ch.qos.logback.contrib:logback-jackson:0.1.5'
+
+    //Json Path drilling
+    // <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
+    testRuntime "com.jayway.jsonpath:json-path:2.5.0"
+
+}
+
+sourceSets {
+    test {
+        resources {
+            srcDirs = ['src/test/java','src/test/resources'] // define `src/test/resources` and `src/test/java` as resource folders
+            exclude '**/*.java'
+            //exclude '**/*.scala'
+        }
+//        gatling{
+//            scala.srcDir "src/test/scala"
+//        }
+    }
+}
+//sourceSets {
+//    gatling {
+//        scala.srcDir "scala"
+////                // or
+////                scala.srcDirs = ["scala"] <2>
+////
+////                resources.srcDir "folder2" <3>
+////                // or
+////                resources.srcDirs = ["folder2"] <4>
+//    }
+//}
+
+test {
+    useJUnitPlatform () // enable junit5 platform
+}
+
+task karateExecute(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    main = System.properties.getProperty('mainClass')
+}
+

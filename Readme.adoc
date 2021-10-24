@@ -1,0 +1,5 @@
+# Mutli Project Repo
+This is intended to work on a final working multi project with various setups, where each project should act as individual project.
+
+## Details :
+### 01_gradle_conduit_api_perf - Should be used for api automation with gradle which includes preformance automation.
