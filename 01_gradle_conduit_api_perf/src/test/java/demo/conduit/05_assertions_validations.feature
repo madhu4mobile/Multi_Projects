@@ -18,6 +18,7 @@ Feature: To exhibit assertions and match
       # to check if atleast one bio is null in authors WILD CARDS
       And match response.articles[*].author.bio contains null
       And match response..bio contains null
+      And match each response..image != null
 
 
 

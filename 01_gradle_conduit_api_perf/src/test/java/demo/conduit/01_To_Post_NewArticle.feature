@@ -25,21 +25,20 @@ Feature: login with an existing user
 
     # logic to check if there are no articles at first
 
-    * def myResponse = response
+    * def response = response
 
     * def myConditionToCheckIfNoArticle =
       """
       function(arg) {
-        if ( myResponse.articlesCount == 0) {
-           console.log("there are no articles")
-           console.log(myResponse.articles)
-           console.log(myResponse.articles.length)
-           console.log(myResponse.length)
-           console.log( "returning from if")
+        if ( response.articlesCount == 0) {
+           console.log("there are no articles, returning from if")
+           console.log(response.articles)
+           console.log(response.articles.length)
+           console.log(response.length)
            var myNum = 0
            return myNum
         }
-        else if (myResponse.articlesCount > 9){
+        else if (response.articlesCount > 9){
           console.log("returning from else if")
           var slug = arg.articles[0].slug;
           console.log("arg.articles[0].slug retuns:",slug)
@@ -59,7 +58,7 @@ Feature: login with an existing user
       }
       """
     # calling function after passing response as variable
-    * def myNum = call myConditionToCheckIfNoArticle myResponse
+    * def myNum = call myConditionToCheckIfNoArticle response
     * print myNum
       # logic to increment Article number to next one
     * def myNextNum = String(parseInt(myNum) + 1)
@@ -68,6 +67,7 @@ Feature: login with an existing user
     #And print presentUser
 
     ### To prepare the body for the next article
+    * print "my extraString is :-->",extraString
     * def strNewArticle = "Article"+myNextNum+extraString
     * def strNewDescription = "Header"+myNextNum+extraString
     * def strNewBody = "Body"+myNextNum+extraString

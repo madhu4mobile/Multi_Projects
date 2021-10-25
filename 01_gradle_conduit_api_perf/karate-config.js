@@ -18,8 +18,7 @@ function fn() {
 
       var config = {
         env: env,
-        myVarName: 'someValue',
-        extraString: ' for user1',
+        myGlobalVarName: 'someValue',
         sslConfig: true,
 
 //            proxy:
@@ -34,25 +33,28 @@ function fn() {
 
             }
 
-          if (env == 'dev') {
+          if (env == 'test') {
             // customize
             // e.g. config.foo = 'bar';
             config.userEmail = 'testuser1@karate.com';
             config.userPassword = 'test123';
+            config.extraString = ' for user1',
             config.apiUrl = 'https://conduit.productionready.io/api';
           };
 
-          if (env == 'test') {
+          if (env == 'dev') {
             // customize
             config.userEmail = 'testuser10@karate.com';
             config.userPassword = 'test123';
-            config.apiUrl = 'https://my-e2e-api.com';
+            config.extraString = ' for user10',
+            //config.apiUrl = 'https://api.realworld.io/api';
+            config.apiUrl = 'https://conduit.productionready.io/api';
           };
         //karate.configure('proxy',  { uri: 'http://xx.xx.xxx.xx:8080', username: 'myuserid', password: 'xxxxxx' });
 
           // don't wait more than 5 seconds for a connection or response
-            karate.configure('connectTimeout'   , 5000);
-            karate.configure('readTimeout'      , 5000);
+            karate.configure('connectTimeout'   , 10000);
+            karate.configure('readTimeout'      , 10000);
             //To call previously set proxy from karate.configuration
         /*  karate.configure('proxy',config.proxy);
             karate.log('Present proxy being used is :', config.proxy.uri );  */
@@ -64,10 +66,8 @@ function fn() {
 
         var env = karate.env; // get system property 'karate.env'
         karate.log('karate.env system property was:', env);
-
-
         karate.log('api URL used :',config.apiUrl );
 
 
-  return config;
-}
+        return config;
+    }

@@ -1,13 +1,12 @@
-Feature: Create and use Token
+Feature: Create and use Token by calling one time
 
   Scenario: Create Token
     Given url apiUrl
-      #Given url 'https://api.realworld.io/api'
-      #Given url 'http://localhost:4200'
-    * def extraString = ' for user1'
+    * print "apiUrl in CreateToken feature :",apiUrl
+
     Given path 'users/login'
     And request {"user":{"email":#(userEmail),"password":#(userPassword)}}
     When method post
     Then status 200
-    #And print karate.pretty(response)
+
     And def authToken = response.user.token

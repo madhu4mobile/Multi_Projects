@@ -16,13 +16,17 @@ https://github.com/bantling/asciidoc/blob/master/README.adoc
 
 === Using Gradle run commands from Terminal or Jenkins
 
-* To run all tests with environment as dev
+=====  To run all tests with environment as dev
 ....
 gradlew test -Dkarate.env="dev"
 ....
-* To run all tests with particular tags and  environment as dev
+=====  To run all tests with particular tags and  environment as dev
 ....
 gradlew test "-Dkarate.options="--tags '@debug1 and @debug2'" classpath:demo/conduit/02_Get_Particular_Article.feature" -Dtest=TotalTestsRunner
+....
+=====  To run a particular feature with env as test
+....
+gradlew test -Dkarate.options="classpath:demo/conduit/02_Get_Particualar_Article.feature" -Dkarate.env=test
 ....
 
 
