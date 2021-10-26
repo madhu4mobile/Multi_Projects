@@ -47,6 +47,10 @@ dependencies {
     //Json Path drilling
     // <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
     testRuntimeOnly  'com.jayway.jsonpath:json-path:2.6.0'
+
+    // https://mvnrepository.com/artifact/com.github.javafaker/javafaker
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+
 }
 
 //    sourceSets {
