@@ -3,3 +3,6 @@
 /.gradle/
 *karate-reports_*
 /target/karate-reports/
+/.idea/
+/out/
+/.idea/

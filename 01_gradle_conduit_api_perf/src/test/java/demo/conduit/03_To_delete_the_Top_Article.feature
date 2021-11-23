@@ -7,4 +7,5 @@ Feature: To test delete functionality
 
   Scenario: To capture slug details from the most recent article and to create a next article
     * print "TBD : Delete the topmost article is yet to be done"
+    * def myNewUrl = apiUrl+"addition"
 

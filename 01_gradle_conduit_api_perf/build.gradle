@@ -2,23 +2,34 @@
 
  */
 
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.gradle.api.tasks.testing.logging.TestLogEvent
-//import org.gradle.api.tasks.testing.TestResult
-//import org.gradle.api.tasks.testing.TestResult.ResultType
+
 
 plugins {
     id 'java'
     //id 'scala'
-    //id 'io.gatling.gradle' version "3.6.1"
+    id 'idea'
+//    id 'io.gatling.gradle' version '3.6.1'
+}
+
+configurations {
+    gatling
+}
+
+ext {
+    karateVersion = '1.1.0'
+    masterThoughtVersion = '5.6.1'
+    junitPlatformVersion = '1.4.2'
+    junitJupiterVersion = '5.4.2'
+    jqwikVersion = '1.5.6'
+    gatlingVersion = '3.6.1'
+
+//    gatlingPluginVersion= '3.6.1'
 }
 
 sourceCompatibility = 11
 targetCompatibility = 11
 
-ext {
-    karateVersion= '1.1.0'
-}
+
 
 repositories {
     // Use JCenter for resolving dependencies.
@@ -40,7 +51,7 @@ dependencies {
     //testImplementation "io.gatling.gatling-maven-plugin:3.0.2"
 
     // Karate logging
-    testRuntimeOnly 'net.masterthought:cucumber-reporting:5.6.0'
+    testRuntimeOnly "net.masterthought:cucumber-reporting:${masterThoughtVersion}"
     testRuntimeOnly 'ch.qos.logback.contrib:logback-json-classic:0.1.5'
     testRuntimeOnly 'ch.qos.logback.contrib:logback-jackson:0.1.5'
 
@@ -51,49 +62,67 @@ dependencies {
     // https://mvnrepository.com/artifact/com.github.javafaker/javafaker
     implementation 'com.github.javafaker:javafaker:1.0.2'
 
+/*    gatling 'org.scala-lang:scala-library:2.13.6'
+    gatling 'io.gatling:gatling-app:3.6.1'
+    gatling 'io.gatling.highcharts:gatling-charts-highcharts:3.6.1'
+    gatling "com.intuit.karate:karate-gatling:${karateVersion}"*/
+
 }
 
-//    sourceSets {
-//        test {
-//            resources {
-//                srcDirs = ['src/test/java'] // define `src/test/resources` and `src/test/java` as resource folders
-//                exclude '**/*.java'
-//                //exclude '**/*.scala'
-//            }
-////            gatling{
-////                scala.srcDir "src/test/scala"
-////            }
-//        }
-//    }
+/*test {
+    useJUnitPlatform()
+    systemProperty "karate.options", System.properties.getProperty("karate.options")
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
+    outputs.upToDateWhen { false }
+    testLogging.showStandardStreams = true
+}*/
+
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
+    // pull karate options into the runtime
+    systemProperty "karate.options", System.properties.getProperty("karate.options")
+    // pull karate env into the runtime
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
+
+    // ensure tests are always run
+    outputs.upToDateWhen { false }
+}
 
 sourceSets {
     test {
         resources {
-            srcDir file("src/test/java")
-            exclude "**/*.java"
+            srcDirs = ['src/test/java','src/test/resources'] // define 'src/test/resources' and 'src/test/java' as resource folders
+            //srcDirs = ['src/test/java','src/test/resources','src/test/scala']
+            //exclude '**/*.java'
+            //exclude '**/*.scala'
         }
     }
 }
 
-test {
-    testLogging {
-        events  TestLogEvent.FAILED,
-                TestLogEvent.PASSED,
-                TestLogEvent.SKIPPED,
-                TestLogEvent.STANDARD_ERROR,
-                TestLogEvent.STANDARD_OUT
-        exceptionFormat TestExceptionFormat.FULL
-        showCauses true
-        showExceptions true
-        showStackTraces true
-        outputs.upToDateWhen {false}
-        showStandardStreams true
-    }
+/*// to run, type: "gradle gatling"
+task(gatlingRun, type: JavaExec, overwrite: true) {
+//task gatlingPerf(type: JavaExec) {
+    group = 'Perf Tests'
+    description = 'Run Gatling perf Tests'
+    new File("${buildDir}/reports/gatling").mkdirs()
+    classpath = sourceSets.test.runtimeClasspath
+    main = "io.gatling.app.Gatling"
+    args = [
+            // change this to suit your simulation entry-point
+            //'-s', 'mock.CatsKarateSimulation',
+            '-s', 'java.perf.data',
+            '-rf', "${buildDir}/reports/gatling"
+    ]
+    systemProperties System.properties
+}*/
 
-    useJUnitPlatform()
-    systemProperty "karate.options", System.properties.getProperty("karate.options")
-    systemProperty "karate.env", System.properties.getProperty("karate.env")
-}
+
 
 /*test {
     useJUnitPlatform () // enable junit5 platform

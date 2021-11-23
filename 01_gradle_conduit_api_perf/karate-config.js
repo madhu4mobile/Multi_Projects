@@ -13,7 +13,7 @@ function fn() {
     */
 
       if (!env) {
-        env = 'dev';
+        env = 'test';
       }
 
       var config = {

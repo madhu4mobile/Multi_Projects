@@ -25,7 +25,7 @@ Feature: To test geting articles functionality
     * def myConditionToCheckIfNoArticle =
       """
       function(arg) {
-    if ( response.articlesCount == 0) {
+        if ( response.articlesCount == 0) {
            console.log("there are no articles")
            console.log(response.articles)
            console.log(response.articles.length)
@@ -33,6 +33,10 @@ Feature: To test geting articles functionality
            console.log( "returning from if")
            var myNum = 0
            return myNum
+        }
+        else if (arg.articles[0].slug.substr(7,3) == 'NaN') {
+          var myNum = 0;
+          return myNum
         }
         else if (response.articlesCount > 9){
           console.log("returning from else if")
