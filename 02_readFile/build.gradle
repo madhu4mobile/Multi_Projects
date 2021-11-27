@@ -1,0 +1,135 @@
+/*
+
+ */
+
+
+
+plugins {
+    id 'java'
+    //id 'scala'
+    id 'idea'
+//    id 'io.gatling.gradle' version '3.6.1'
+}
+
+configurations {
+    gatling
+}
+
+ext {
+    karateVersion = '1.1.0'
+    masterThoughtVersion = '5.6.1'
+    junitPlatformVersion = '1.4.2'
+    junitJupiterVersion = '5.4.2'
+//    jqwikVersion = '1.5.6'
+//    gatlingVersion = '3.6.1'
+
+//    gatlingPluginVersion= '3.6.1'
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+
+
+repositories {
+    // Use JCenter for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+//    // Use JUnit Jupiter API for testing.
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+
+//    // Use JUnit Jupiter Engine for testing.
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    testImplementation "com.intuit.karate:karate-junit5:${karateVersion}"
+    //for gatling & scala simulations to run
+    testImplementation "com.intuit.karate:karate-gatling:${karateVersion}"
+    //Not required
+    //testImplementation 'com.intuit.karate:karate-apache:0.9.6'
+    //testImplementation "io.gatling.gatling-maven-plugin:3.0.2"
+
+    // Karate logging
+    testRuntimeOnly "net.masterthought:cucumber-reporting:${masterThoughtVersion}"
+    testRuntimeOnly 'ch.qos.logback.contrib:logback-json-classic:0.1.5'
+    testRuntimeOnly 'ch.qos.logback.contrib:logback-jackson:0.1.5'
+
+    //Json Path drilling
+    // <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
+    testRuntimeOnly  'com.jayway.jsonpath:json-path:2.6.0'
+
+    // https://mvnrepository.com/artifact/com.github.javafaker/javafaker
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+
+/*    gatling 'org.scala-lang:scala-library:2.13.6'
+    gatling 'io.gatling:gatling-app:3.6.1'
+    gatling 'io.gatling.highcharts:gatling-charts-highcharts:3.6.1'
+    gatling "com.intuit.karate:karate-gatling:${karateVersion}"*/
+
+}
+
+/*test {
+    useJUnitPlatform()
+    systemProperty "karate.options", System.properties.getProperty("karate.options")
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
+    outputs.upToDateWhen { false }
+    testLogging.showStandardStreams = true
+}*/
+
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
+    // pull karate options into the runtime
+    systemProperty "karate.options", System.properties.getProperty("karate.options")
+    // pull karate env into the runtime
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
+
+    // ensure tests are always run
+    outputs.upToDateWhen { false }
+}
+
+sourceSets {
+    test {
+        resources {
+            srcDirs = ['src/test/java','src/test/resources'] // define 'src/test/resources' and 'src/test/java' as resource folders
+            //srcDirs = ['src/test/java','src/test/resources','src/test/scala']
+            //exclude '**/*.java'
+            //exclude '**/*.scala'
+        }
+    }
+}
+
+/*// to run, type: "gradle gatling"
+task(gatlingRun, type: JavaExec, overwrite: true) {
+//task gatlingPerf(type: JavaExec) {
+    group = 'Perf Tests'
+    description = 'Run Gatling perf Tests'
+    new File("${buildDir}/reports/gatling").mkdirs()
+    classpath = sourceSets.test.runtimeClasspath
+    main = "io.gatling.app.Gatling"
+    args = [
+            // change this to suit your simulation entry-point
+            //'-s', 'mock.CatsKarateSimulation',
+            '-s', 'java.perf.data',
+            '-rf', "${buildDir}/reports/gatling"
+    ]
+    systemProperties System.properties
+}*/
+
+
+
+/*test {
+    useJUnitPlatform () // enable junit5 platform
+}*/
+
+task karateExecute(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    //main = System.properties.getProperty('mainClass')
+}
+

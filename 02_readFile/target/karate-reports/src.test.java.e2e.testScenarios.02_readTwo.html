@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="res/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="res/karate-report.css" type="text/css"/>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <script type="text/javascript" src="res/jquery.min.js"></script>
+    <script type="text/javascript" src="res/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="res/bootstrap.min.js"></script>
+    <script type="text/javascript" src="res/karate-report.js"></script>
+    <title>src.test.java.e2e.testScenarios.02_readTwo</title>  
+  </head>
+  <body>   
+    <div id="root-container">
+      <div id="leftnav">
+                
+        <div>
+  <div class="nav-logo">
+    <a href="karate-summary.html">
+      <img src="karate-logo.svg" alt="Karate"/>
+    </a>
+    <div class="nav-count">
+      <div id="nav-pass" class="bg-success">1</div>
+      <div id="nav-fail" class="bg-danger">0</div>
+    </div>
+  </div>
+  <div id="nav-type">
+    <div>Scenarios</div>
+  </div>         
+  <div id="nav-date">
+    <div>2021-11-26 10:06:25 PM</div>
+  </div>        
+</div>
+
+        <div class="nav-container">
+          <div class="nav-item passed">
+            <a href="#[1:3]"><span>[1:3]</span> <span>with a web upload</span></a>
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <div class="page-heading alert alert-primary">
+          <a href="karate-summary.html">Summary</a><span class="feature-label">|</span>
+          <a href="karate-tags.html">Tags</a><span class="feature-label">|</span>
+          <span class="feature-label">Feature:</span>
+          <span class="feature-path">src/test/java/e2e/testScenarios/02_readTwo.feature</span><span class="feature-label">|</span>
+          <span class="feature-name">to test file upload</span>
+          <span class="feature-description"></span>
+        </div>
+        <div class="scenario">
+          <div class="scenario-heading" id="[1:3]">
+            <div class="heading-container">
+              <div class="scenario-tags">
+                
+              </div>
+              <div class="scenario-keyword">
+                Scenario: <span>[1:3]</span>
+                <span class="scenario-name">with a web upload</span>
+                <span></span>
+              </div>
+            </div>
+            <div class="scenario-time passed">
+              <span>ms:</span>&nbsp;<span>2139</span>
+            </div>
+          </div>
+          
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.4">
+      <div class="step-ref passed">4</div>
+      
+      <div class="step-cell passed">
+        <span>Given</span>&nbsp;<span>url &#39;https://store-eu-hz-3.ufile.io//v1/upload/chunk&#39;</span>
+      </div>
+    </div>
+    <div class="time-cell passed">95</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.5">
+      <div class="step-ref passed">5</div>
+      
+      <div class="step-cell passed">
+        <span>And</span>&nbsp;<span>header Content-Type = &#39;multipart/form-data&#39;</span>
+      </div>
+    </div>
+    <div class="time-cell passed">1</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.6">
+      <div class="step-ref passed">6</div>
+      
+      <div class="step-cell passed">
+        <span>And</span>&nbsp;<span>multipart file file =  { read: &#39;classpath:e2e/common/testFile1.txt&#39;, filename: &#39;testFile1.csv&#39;, contentType: &#39;pain/text&#39; }</span>
+      </div>
+    </div>
+    <div class="time-cell passed">99</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.7">
+      <div class="step-ref passed">7</div>
+      
+      <div class="step-cell passed">
+        <span>When</span>&nbsp;<span>method post</span>
+      </div>
+    </div>
+    <div class="time-cell passed">1837</div>
+  </div>
+
+   
+  
+  
+
+  
+
+  <div class="preformatted" data-parent="0.7">22:06:23.496 request:
+1 &gt; POST https://store-eu-hz-3.ufile.io//v1/upload/chunk
+1 &gt; Content-Type: multipart/form-data; boundary=6aab60b6d3f15945
+1 &gt; Content-Length: 218
+1 &gt; Host: store-eu-hz-3.ufile.io
+1 &gt; Connection: Keep-Alive
+1 &gt; User-Agent: Apache-HttpClient/4.5.13 (Java/11.0.12)
+1 &gt; Accept-Encoding: gzip,deflate
+
+Mixed: content-disposition: form-data; name=&quot;file&quot;; filename=&quot;testFile1.csv&quot;
+content-type: pain/text; charset=UTF-8
+content-length: 21
+Completed: true
+IsInMemory: true
+
+
+22:06:24.910 response time in milliseconds: 1410
+1 &lt; 400
+1 &lt; Date: Sat, 27 Nov 2021 04:06:24 GMT
+1 &lt; Server: Apache/2.4.29 (Ubuntu)
+1 &lt; Access-Control-Allow-Origin: 
+1 &lt; Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Access-Control-Allow-Headers, x-api-key
+1 &lt; Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE
+1 &lt; Access-Control-Allow-Credentials: true
+1 &lt; Connection: keep-alive, close
+1 &lt; X-Frame-Options: SAMEORIGIN
+1 &lt; Content-Length: 78
+1 &lt; Content-Type: application/json; charset=utf-8
+[&quot;The File Unique ID field is required.&quot;,&quot;The Chunk Index field is required.&quot;]
+</div>   
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.8">
+      <div class="step-ref passed">8</div>
+      
+      <div class="step-cell passed">
+        <span>Then</span>&nbsp;<span>print response</span>
+      </div>
+    </div>
+    <div class="time-cell passed">108</div>
+  </div>
+
+   
+  
+  
+
+  
+
+  <div class="preformatted" data-parent="0.8">22:06:25.025 [print] [
+  &quot;The File Unique ID field is required.&quot;,
+  &quot;The Chunk Index field is required.&quot;
+]
+ 
+</div>   
+
+  
+
+</div>
+</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
